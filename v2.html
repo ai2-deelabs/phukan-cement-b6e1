@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ภูคาน — งานปูนซีเมนต์ระดับสถาปัตยกรรม</title>
+<meta name="description" content="ภูคาน (Phukan) แบรนด์ปูนซีเมนต์และไมโครซีเมนต์ระดับพรีเมียม สำหรับพื้นที่ที่ต้องการความประณีตเฉกเช่นงานฝีมือ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+  :root{
+    --background:#14161A;
+    --card:#1D2025;
+    --bg-accent:#0E1013;
+    --foreground:#F3EFEA;
+    --muted:#948F89;
+    --border:#2B2E33;
+    --primary:#FF5C6C;
+    --secondary:#2A2D32;
+    --accent:#FF5C6C;
+    --font-heading:'Pridi', serif;
+    --font-body:'Sarabun', sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:84px;}
+  body{
+    background:var(--background);
+    color:var(--foreground);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.9;
+    word-break:break-word;
+    overflow-wrap:break-word;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:var(--font-heading);
+    font-weight:500;
+    line-height:1.55;
+    color:var(--foreground);
+  }
+  img{max-width:100%;height:auto;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1280px;margin:0 auto;padding:0 1.5rem;}
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+    font-family:var(--font-body);
+    font-size:.78rem;
+    color:var(--primary);
+    text-transform:uppercase;
+    letter-spacing:.32em;
+    font-weight:600;
+  }
+  html[lang="th"] .eyebrow{letter-spacing:0; text-transform:none;}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--primary);display:inline-block;}
+  html[lang="th"] .eyebrow::before{display:none;}
+
+  /* ===== Header ===== */
+  #siteHeader{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(20,22,26,.6);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+    transition:background .4s ease, padding .4s ease, border-color .4s ease;
+  }
+  #siteHeader.scrolled{background:rgba(14,16,19,.92); border-color:var(--border);}
+  #siteHeader .header-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.15rem 1.5rem;gap:1rem;
+  }
+  #siteHeader .logo{
+    font-family:var(--font-heading);
+    font-size:clamp(1.2rem,3vw,1.6rem);
+    letter-spacing:.28em;
+    font-weight:600;
+    color:var(--foreground);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  #siteHeader .logo span{color:var(--primary);}
+  #siteHeader .nav-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:44px;height:44px;flex-shrink:0;
+    background:transparent;border:1px solid var(--border);border-radius:50%;
+    color:var(--foreground);cursor:pointer;
+  }
+  #siteHeader .nav-links{
+    display:none;
+    position:fixed;top:73px;left:0;right:0;bottom:0;
+    background:var(--background);
+    flex-direction:column;align-items:stretch;
+    padding:1.5rem 1.5rem 2.5rem;
+    gap:0;
+    overflow-y:auto;
+    border-top:1px solid var(--border);
+  }
+  #siteHeader .nav-links.open{display:flex;}
+  #siteHeader .nav-links a.nav-link{
+    padding:1.05rem .25rem;
+    border-bottom:1px solid var(--border);
+    font-size:1.02rem;
+    color:var(--foreground);
+    width:100%;
+  }
+  #siteHeader .nav-cta{
+    margin-top:1.5rem;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--primary);
+    color:#14161A;
+    font-weight:600;
+    padding:.95em 1.6em;
+    border-radius:999px;
+    width:100%;
+    min-height:44px;
+  }
+  .lang-sw{
+    display:inline-flex;align-items:center;gap:.35em;
+    font-size:.78em;color:var(--muted);
+    padding:.4em .3em;
+    flex-shrink:0;
+  }
+  .lang-sw svg{color:var(--primary);}
+
+  @media (min-width:768px){
+    #siteHeader .nav-toggle{display:none;}
+    #siteHeader .nav-links{
+      display:flex!important;
+      position:static;
+      flex-direction:row;
+      align-items:center;
+      background:transparent;
+      border-top:none;
+      padding:0;
+      gap:2rem;
+      width:auto;
+      overflow:visible;
+    }
+    #siteHeader .nav-links a.nav-link{
+      padding:.4rem 0;
+      border-bottom:none;
+      width:auto;
+      font-size:.95rem;
+    }
+    #siteHeader .nav-cta{
+      margin-top:0;
+      width:auto;
+      padding:.75em 1.5em;
+    }
+  }
+
+  /* ===== Buttons ===== */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    gap:.5em;
+    padding:.95em 1.9em;
+    border-radius:999px;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:.98rem;
+    min-height:44px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .35s ease, box-shadow .35s ease, background .35s ease, border-color .35s ease;
+  }
+  .btn-primary{background:var(--primary); color:#14161A;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(255,92,108,.55);}
+  .btn-ghost{background:transparent; color:var(--foreground); border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--primary); color:var(--primary);}
+
+  /* ===== Reveal animation ===== */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== Hero ===== */
+  #hero{
+    position:relative;
+    padding-top:110px;
+    display:flex;flex-direction:column;
+    background:var(--background);
+  }
+  .hero-text{
+    padding:2rem 1.5rem 3rem;
+    display:flex;flex-direction:column;gap:1.6rem;
+  }
+  .hero-text h1{
+    font-size:clamp(2.1rem,7vw,3.6rem);
+    padding-top:.25rem;
+  }
+  .hero-text h1 em{
+    font-style:normal;color:var(--primary);
+  }
+  .hero-text p{color:var(--muted); font-size:1.05rem; max-width:46ch;}
+  .hero-actions{display:flex;flex-direction:column;gap:.9rem;}
+  .hero-actions .btn{width:100%;}
+  .hero-media{
+    position:relative;
+    width:100%;
+    height:52vh;
+    min-height:320px;
+    overflow:visible;
+    clip-path:polygon(0 6%, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-media img{
+    width:100%;height:100%;object-fit:cover;
+    filter:saturate(.85) contrast(1.05) brightness(.85);
+    transform:scale(1.06);
+    transition:transform 6s ease;
+  }
+  .hero-media::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(20,22,26,.15), rgba(20,22,26,.85));
+  }
+  .hero-credit{
+    position:absolute;bottom:.6rem;right:.9rem;z-index:2;
+    font-size:.68rem;color:rgba(243,239,234,.7);
+  }
+  .hero-credit a{color:rgba(243,239,234,.85); text-decoration:underline;}
+  .hero-stats{
+    display:flex;flex-wrap:wrap;gap:1.5rem 2.2rem;
+    padding:1.6rem 1.5rem 0;
+    border-top:1px solid var(--border);
+    margin:0 1.5rem;
+  }
+  .hero-stat b{display:block;font-family:var(--font-heading);font-size:1.6rem;color:var(--primary);}
+  .hero-stat span{font-size:.82rem;color:var(--muted);}
+
+  @media (min-width:900px){
+    #hero{flex-direction:row; min-height:92vh; align-items:stretch; padding-top:0;}
+    .hero-text{
+      width:44%;
+      justify-content:center;
+      padding:6rem 3.5rem 3rem 4rem;
+      gap:2rem;
+    }
+    .hero-actions{flex-direction:row;}
+    .hero-actions .btn{width:auto;}
+    .hero-media{
+      width:56%;height:auto;min-height:auto;
+      clip-path:polygon(9% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    .hero-stats{
+      position:absolute;left:0; bottom:0;
+      width:44%;margin:0;padding:1.8rem 4rem 2.4rem;
+    }
+    #hero{position:relative;}
+  }
+
+  /* ===== Manifesto strip ===== */
+  #manifesto{
+    background:var(--bg-accent);
+    padding:4.5rem 0;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    position:relative;
+  }
+  #manifesto blockquote{
+    font-family:var(--font-heading);
+    font-size:clamp(1.3rem,3.6vw,2.1rem);
+    line-height:1.7;
+    max-width:820px;
+    margin:0 auto;
+    text-align:center;
+    padding:0 1.5rem;
+  }
+  #manifesto blockquote::before{content:"“";color:var(--primary);}
+  #manifesto blockquote::after{content:"”";color:var(--primary);}
+  #manifesto cite{
+    display:block;margin-top:1.6rem;text-align:center;
+    font-style:normal;color:var(--muted);font-size:.85rem;
+  }
+
+  /* ===== Section heading generic ===== */
+  .section{padding:5.5rem 0;}
+  .section-head{margin-bottom:3rem; padding:0 1.5rem;}
+  .section-head h2{font-size:clamp(1.8rem,5vw,2.7rem); padding-top:.3rem; max-width:18ch;}
+  .section-head p{color:var(--muted); max-width:52ch; margin-top:1rem;}
+
+  /* ===== Collection horizontal scroll ===== */
+  #collection{background:var(--background);}
+  .collection-scroll{
+    display:flex;gap:1.25rem;
+    overflow-x:auto;
+    padding:.5rem 1.5rem 1.5rem;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .collection-scroll::-webkit-scrollbar{height:6px;}
+  .collection-scroll::-webkit-scrollbar-thumb{background:var(--border); border-radius:999px;}
+  .product-card{
+    flex:0 0 78%;
+    max-width:340px;
+    scroll-snap-align:start;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    transition:transform .45s ease, border-color .45s ease;
+  }
+  .product-card:hover{transform:translateY(-6px); border-color:var(--primary);}
+  .product-media{height:220px; overflow:hidden; position:relative;}
+  .product-media img{width:100%;height:100%;object-fit:cover; transition:transform .6s ease;}
+  .product-card:hover .product-media img{transform:scale(1.08);}
+  .product-num{
+    position:absolute;top:.9rem;left:.9rem;
+    font-family:var(--font-heading);
+    color:var(--foreground);
+    background:rgba(20,22,26,.65);
+    border:1px solid var(--border);
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.85rem;
+  }
+  .product-body{padding:1.5rem;}
+  .product-body h3{font-size:1.25rem;padding-top:.2rem;}
+  .product-body p{color:var(--muted); font-size:.92rem; margin-top:.6rem;}
+  .product-tag{
+    display:inline-block;margin-top:1rem;
+    font-size:.72rem;color:var(--primary);
+    text-transform:uppercase;letter-spacing:.2em;
+    border-top:1px solid var(--border); padding-top:.8rem; width:100%;
+  }
+  html[lang="th"] .product-tag{letter-spacing:0; text-transform:none;}
+  @media (min-width:768px){
+    .product-card{flex:0 0 320px;}
+  }
+
+  /* ===== Process timeline ===== */
+  #process{background:var(--bg-accent); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .timeline{padding:0 1.5rem; max-width:760px; margin:0 auto;}
+  .timeline-item{
+    display:grid;
+    grid-template-columns:56px minmax(0,1fr);
+    gap:1.2rem;
+    padding-bottom:2.6rem;
+    position:relative;
+  }
+  .timeline-item::before{
+    content:"";position:absolute;left:27px;top:56px;bottom:0;
+    width:1px;background:var(--border);
+  }
+  .timeline-item:last-child::before{display:none;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-num{
+    width:56px;height:56px;border-radius:50%;
+    border:1px solid var(--primary);
+    color:var(--primary);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-heading);font-size:1.05rem;
+    flex-shrink:0;
+  }
+  .timeline-body h3{font-size:1.25rem;}
+  .timeline-body p{color:var(--muted); margin-top:.5rem; font-size:.95rem;}
+
+  /* ===== Why / alternating rows ===== */
+  #why{background:var(--background);}
+  .why-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:1.5rem;
+    align-items:center;
+    padding:0 1.5rem;
+    margin-bottom:3.5rem;
+  }
+  .why-row:last-child{margin-bottom:0;}
+  .why-media{border-radius:6px; overflow:hidden; height:280px; position:relative;}
+  .why-media img{width:100%;height:100%;object-fit:cover; transition:transform .6s ease;}
+  .why-row:hover .why-media img{transform:scale(1.05);}
+  .why-text h3{font-size:1.5rem; padding-top:.2rem;}
+  .why-text p{color:var(--muted); margin-top:.8rem;}
+  .why-stat{
+    display:inline-flex;flex-direction:column;
+    margin-top:1.2rem; padding-top:1.1rem;
+    border-top:1px solid var(--border);
+  }
+  .why-stat b{font-family:var(--font-heading); color:var(--primary); font-size:1.8rem;}
+  .why-stat span{color:var(--muted); font-size:.82rem;}
+  @media (min-width:860px){
+    .why-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:3.5rem;}
+    .why-row.reverse .why-media{order:2;}
+    .why-row.reverse .why-text{order:1;}
+    .why-media{height:360px;}
+  }
+
+  /* ===== Gallery ===== */
+  #gallery{background:var(--bg-accent); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .gallery-grid{
+    display:grid;grid-template-columns:1fr;gap:.8rem;
+    padding:0 1.5rem;
+  }
+  .gallery-grid figure{position:relative; overflow:hidden; border-radius:4px; margin:0;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover; transition:transform .6s ease;}
+  .gallery-grid figure:hover img{transform:scale(1.07);}
+  .gallery-grid figcaption{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:.6rem .8rem;
+    font-size:.68rem;color:rgba(243,239,234,.85);
+    background:linear-gradient(0deg, rgba(0,0,0,.65), transparent);
+  }
+  .gallery-grid figcaption a{text-decoration:underline;}
+  .g1{height:280px;} .g2{height:200px;} .g3{height:200px;} .g4{height:280px;}
+  @media (min-width:768px){
+    .gallery-grid{grid-template-columns:repeat(4, minmax(0,1fr)); grid-template-rows:auto auto;}
+    .g1{grid-column:1/3; grid-row:1/3; height:100%;}
+    .g2{grid-column:3/4; grid-row:1/2; height:100%;}
+    .g3{grid-column:4/5; grid-row:1/2; height:100%;}
+    .g4{grid-column:3/5; grid-row:2/3; height:100%;}
+    .gallery-grid{height:520px;}
+  }
+
+  /* ===== Testimonial ===== */
+  #testimonial{
+    position:relative;
+    padding:6rem 1.5rem;
+    background:var(--card);
+    overflow:hidden;
+  }
+  #testimonial .t-bg{position:absolute;inset:0;z-index:0;}
+  #testimonial .t-bg img{width:100%;height:100%;object-fit:cover; opacity:.28; filter:grayscale(.4);}
+  #testimonial .t-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, var(--card), rgba(29,32,37,.7));}
+  .t-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;}
+  .t-inner p{font-family:var(--font-heading); font-size:clamp(1.15rem,3vw,1.6rem); line-height:1.7;}
+  .t-inner .who{margin-top:1.8rem; display:flex;align-items:center;justify-content:center;gap:.9rem;}
+  .t-inner .who img{width:48px;height:48px;border-radius:50%;object-fit:cover; border:1px solid var(--primary);}
+  .t-inner .who-name{font-size:.9rem; text-align:left;}
+  .t-inner .who-name small{display:block;color:var(--muted); font-size:.78rem;}
+
+  /* ===== Contact ===== */
+  #contact{background:var(--background); border-top:1px solid var(--border);}
+  .contact-wrap{
+    display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem;
+    padding:0 1.5rem;
+  }
+  .contact-info h2{font-size:clamp(1.9rem,5vw,2.6rem); padding-top:.3rem;}
+  .contact-info p{color:var(--muted); margin-top:1rem; max-width:44ch;}
+  .contact-list{list-style:none; margin-top:2rem; display:flex;flex-direction:column;gap:1.1rem;}
+  .contact-list li{display:flex; align-items:flex-start; gap:.9rem; color:var(--muted); font-size:.95rem;}
+  .contact-list li i{color:var(--primary); flex-shrink:0; margin-top:.15rem;}
+  .contact-form{
+    background:var(--card); border:1px solid var(--border); border-radius:8px;
+    padding:2rem; display:flex;flex-direction:column;gap:1.1rem;
+  }
+  .contact-form label{font-size:.82rem; color:var(--muted); margin-bottom:.4rem; display:block;}
+  .contact-form input, .contact-form textarea{
+    width:100%;background:var(--background); border:1px solid var(--border); color:var(--foreground);
+    border-radius:5px; padding:.85em 1em; font-family:var(--font-body); font-size:1rem;
+  }
+  .contact-form input:focus, .contact-form textarea:focus{outline:none; border-color:var(--primary);}
+  @media (min-width:860px){
+    .contact-wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:4rem; align-items:start;}
+  }
+
+  /* ===== Footer ===== */
+  footer{background:var(--bg-accent); border-top:1px solid var(--border); padding:4rem 0 2rem;}
+  .footer-top{
+    display:flex;flex-wrap:wrap;gap:2.5rem 3rem;
+    padding:0 1.5rem 3rem;
+    border-bottom:1px solid var(--border);
+  }
+  .footer-col{flex:1 1 200px; min-width:0;}
+  .footer-logo{font-family:var(--font-heading); letter-spacing:.28em; font-size:1.3rem;}
+  .footer-logo span{color:var(--primary);}
+  .footer-col p{color:var(--muted); font-size:.9rem; margin-top:.9rem;}
+  .footer-col h4{font-size:.85rem; text-transform:uppercase; letter-spacing:.2em; color:var(--muted); margin-bottom:1rem;}
+  html[lang="th"] .footer-col h4{letter-spacing:0; text-transform:none;}
+  .footer-col ul{list-style:none; display:flex; flex-direction:column; gap:.7rem;}
+  .footer-col ul a{color:var(--foreground); font-size:.92rem;}
+  .footer-col ul a:hover{color:var(--primary);}
+  .footer-bottom{
+    padding:2rem 1.5rem 0;
+    display:flex;flex-wrap:wrap;gap:1rem;
+    justify-content:space-between; align-items:center;
+  }
+  .footer-bottom p{color:var(--muted); font-size:.82rem;}
+  .credits{padding:1.5rem 1.5rem 0; color:var(--muted); font-size:.72rem; line-height:1.9;}
+  .credits a{text-decoration:underline;}
+  .deelabs-badge{color:var(--muted); font-size:.75rem; font-weight:400;}
+  .deelabs-badge:hover{color:var(--primary);}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="#hero" class="logo">PHU<span>KAN</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a class="nav-link" href="#hero" data-lang-th="หน้าแรก" data-lang-en="Home">หน้าแรก</a>
+      <a class="nav-link" href="#collection" data-lang-th="ผลิตภัณฑ์" data-lang-en="Collection">ผลิตภัณฑ์</a>
+      <a class="nav-link" href="#process" data-lang-th="กระบวนการ" data-lang-en="Process">กระบวนการ</a>
+      <a class="nav-link" href="#why" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+      <a class="nav-link" href="#contact" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a>
+      <a class="nav-cta" href="#contact" data-lang-th="นัดหมายโชว์รูม" data-lang-en="Book Visit">นัดหมายโชว์รูม</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <div class="lang-sw"><i data-lucide="globe" width="14" height="14"></i><span class="lang-sw__label">TH</span></div>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="hero-text">
+    <span class="eyebrow">PHUKAN ATELIER</span>
+    <h1 data-lang-th="พื้นผิวปูนซีเมนต์ ที่ออกแบบให้พื้นที่<em>เปล่งประกาย</em>อย่างเงียบงัน" data-lang-en="Cement surfaces engineered for spaces that <em>glow</em> in silence">พื้นผิวปูนซีเมนต์ ที่ออกแบบให้พื้นที่<em>เปล่งประกาย</em>อย่างเงียบงัน</h1>
+    <p data-lang-th="ภูคานคือแบรนด์ปูนซีเมนต์และไมโครซีเมนต์ระดับพรีเมียม ผลิตเพื่อสถาปนิก นักออกแบบ และเจ้าของโครงการที่มองหาพื้นผิวเฉพาะตัว สำหรับโรงแรมบูทีค บาร์ลับ แกลเลอรี และที่พักอาศัยระดับสูง" data-lang-en="Phukan crafts premium cement and microcement compounds for architects and designers who demand distinctive surfaces — for boutique hotels, hidden bars, galleries and refined residences.">ภูคานคือแบรนด์ปูนซีเมนต์และไมโครซีเมนต์ระดับพรีเมียม ผลิตเพื่อสถาปนิก นักออกแบบ และเจ้าของโครงการที่มองหาพื้นผิวเฉพาะตัว สำหรับโรงแรมบูทีค บาร์ลับ แกลเลอรี และที่พักอาศัยระดับสูง</p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn btn-primary" data-lang-th="สำรวจคอลเลกชัน" data-lang-en="Explore Collection">สำรวจคอลเลกชัน</a>
+      <a href="#contact" class="btn btn-ghost" data-lang-th="นัดหมายที่โชว์รูม" data-lang-en="Book a Showroom Visit">นัดหมายที่โชว์รูม</a>
+    </div>
+  </div>
+  <div class="hero-media" id="heroMedia">
+    <img src="https://images.unsplash.com/photo-1769247178314-39230e302d74?w=1200&h=1400&fit=crop" alt="ไซต์ก่อสร้างยามค่ำคืนพร้อมแสงไฟอาคาร">
+    <span class="hero-credit">Photo by <a href="https://unsplash.com/@lexerium?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Alexander Van Steenberge</a> / <a href="https://unsplash.com/?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Unsplash</a></span>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><b>18</b><span data-lang-th="ปีแห่งการคิดค้นสูตรปูน" data-lang-en="years formulating cement">ปีแห่งการคิดค้นสูตรปูน</span></div>
+    <div class="hero-stat"><b>120+</b><span data-lang-th="โครงการบูทีคที่ไว้วางใจ" data-lang-en="boutique projects trusted">โครงการบูทีคที่ไว้วางใจ</span></div>
+    <div class="hero-stat"><b>5</b><span data-lang-th="สายผลิตภัณฑ์เฉพาะทาง" data-lang-en="specialised product lines">สายผลิตภัณฑ์เฉพาะทาง</span></div>
+  </div>
+</section>
+
+<section id="manifesto" class="reveal">
+  <blockquote data-lang-th="เราไม่ได้ขายปูนซีเมนต์ เราส่งมอบพื้นผิวที่เป็นตัวตนของสถาปัตยกรรม — เนื้อสัมผัสที่จับต้องได้ในความมืด และเปล่งประกายเมื่อแสงตกกระทบ" data-lang-en="We do not sell cement. We deliver the texture that defines architecture — tangible in the dark, luminous the moment light finds it.">เราไม่ได้ขายปูนซีเมนต์ เราส่งมอบพื้นผิวที่เป็นตัวตนของสถาปัตยกรรม — เนื้อสัมผัสที่จับต้องได้ในความมืด และเปล่งประกายเมื่อแสงตกกระทบ</blockquote>
+  <cite data-lang-th="— ปรัชญาของภูคาน" data-lang-en="— The Phukan Philosophy">— ปรัชญาของภูคาน</cite>
+</section>
+
+<section id="collection" class="section">
+  <div class="section-head reveal">
+    <span class="eyebrow">THE COLLECTION</span>
+    <h2 data-lang-th="ห้าสูตรปูน หนึ่งภาษาแห่งพื้นผิว" data-lang-en="Five formulas, one language of texture">ห้าสูตรปูน หนึ่งภาษาแห่งพื้นผิว</h2>
+    <p data-lang-th="แต่ละสูตรถูกคิดค้นเฉพาะทาง เพื่อโจทย์ที่แตกต่างกันของนักออกแบบและสถาปนิก" data-lang-en="Each formula is developed for a distinct challenge faced by designers and architects.">แต่ละสูตรถูกคิดค้นเฉพาะทาง เพื่อโจทย์ที่แตกต่างกันของนักออกแบบและสถาปนิก</p>
+  </div>
+  <div class="collection-scroll">
+    <article class="product-card reveal">
+      <div class="product-media">
+        <span class="product-num">01</span>
+        <img src="https://images.unsplash.com/photo-1737032959126-e09f38f2b83b?w=700&h=500&fit=crop" alt="ผนังปูนสีขาวเนื้อเรียบ">
+      </div>
+      <div class="product-body">
+        <h3 data-lang-th="ปูนขาวสถาปัตย์" data-lang-en="Architectural White">ปูนขาวสถาปัตย์</h3>
+        <p data-lang-th="เนื้อปูนขาวบริสุทธิ์ สำหรับผนังไมโครซีเมนต์ที่ต้องการความสงบและมิติของแสงเงา" data-lang-en="A pure white compound for microcement walls that crave calm and the play of shadow.">เนื้อปูนขาวบริสุทธิ์ สำหรับผนังไมโครซีเมนต์ที่ต้องการความสงบและมิติของแสงเงา</p>
+        <span class="product-tag" data-lang-th="เหมาะกับ · แกลเลอรี, สปา" data-lang-en="Best for · Galleries, Spas">เหมาะกับ · แกลเลอรี, สปา</span>
+      </div>
+    </article>
+    <article class="product-card reveal">
+      <div class="product-media">
+        <span class="product-num">02</span>
+        <img src="https://images.unsplash.com/photo-1737033764404-2210c92878f3?w=700&h=500&fit=crop" alt="พื้นผิวปูนสีเทาเรียบมัน">
+      </div>
+      <div class="product-body">
+        <h3 data-lang-th="ไมโครซีเมนต์เนื้อเรียบ" data-lang-en="Micro-Smooth">ไมโครซีเมนต์เนื้อเรียบ</h3>
+        <p data-lang-th="ผิวสัมผัสเรียบลื่นราวหินขัด สำหรับพื้นบาร์ ลอบบี้ และเคาน์เตอร์ที่ต้องสะท้อนแสงไฟยามค่ำ" data-lang-en="A polished-stone finish for bar floors, lobbies and counters designed to catch evening light.">ผิวสัมผัสเรียบลื่นราวหินขัด สำหรับพื้นบาร์ ลอบบี้ และเคาน์เตอร์ที่ต้องสะท้อนแสงไฟยามค่ำ</p>
+        <span class="product-tag" data-lang-th="เหมาะกับ · บาร์, ลอบบี้โรงแรม" data-lang-en="Best for · Bars, Hotel Lobbies">เหมาะกับ · บาร์, ลอบบี้โรงแรม</span>
+      </div>
+    </article>
+    <article class="product-card reveal">
+      <div class="product-media">
+        <span class="product-num">03</span>
+        <img src="https://images.unsplash.com/photo-1769658860715-c4a315ef7ca0?w=700&h=500&fit=crop" alt="ทางเดินผนังหินและปูนซีเมนต์">
+      </div>
+      <div class="product-body">
+        <h3 data-lang-th="ปูนกันซึมพรีเมียม" data-lang-en="Aqua-Shield Premium">ปูนกันซึมพรีเมียม</h3>
+        <p data-lang-th="สูตรกันซึมเข้มข้น ทนความชื้นและสารเคมี เหมาะกับสระว่ายน้ำและรูฟท็อปบาร์กลางแจ้ง" data-lang-en="A concentrated waterproof compound resisting moisture and chemicals — built for pools and open rooftop bars.">สูตรกันซึมเข้มข้น ทนความชื้นและสารเคมี เหมาะกับสระว่ายน้ำและรูฟท็อปบาร์กลางแจ้ง</p>
+        <span class="product-tag" data-lang-th="เหมาะกับ · สระว่ายน้ำ, รูฟท็อป" data-lang-en="Best for · Pools, Rooftops">เหมาะกับ · สระว่ายน้ำ, รูฟท็อป</span>
+      </div>
+    </article>
+    <article class="product-card reveal">
+      <div class="product-media">
+        <span class="product-num">04</span>
+        <img src="https://images.unsplash.com/photo-1743130940792-7b0fd1d56e06?w=700&h=500&fit=crop" alt="คนงานกำลังเทปูนบนฐานราก">
+      </div>
+      <div class="product-body">
+        <h3 data-lang-th="ปูนสำเร็จรูปหล่อเร็ว" data-lang-en="Rapid-Cast Pro">ปูนสำเร็จรูปหล่อเร็ว</h3>
+        <p data-lang-th="แข็งตัวไวโดยไม่เสียคุณภาพ สำหรับงานปรับปรุงพื้นที่ที่ต้องเปิดใช้งานภายในเวลาจำกัด" data-lang-en="Fast-curing without compromise — for renovations that must reopen on a tight schedule.">แข็งตัวไวโดยไม่เสียคุณภาพ สำหรับงานปรับปรุงพื้นที่ที่ต้องเปิดใช้งานภายในเวลาจำกัด</p>
+        <span class="product-tag" data-lang-th="เหมาะกับ · งานรีโนเวต" data-lang-en="Best for · Renovation Projects">เหมาะกับ · งานรีโนเวต</span>
+      </div>
+    </article>
+    <article class="product-card reveal">
+      <div class="product-media">
+        <span class="product-num">05</span>
+        <img src="https://images.unsplash.com/photo-1762967028709-2e807600adf0?w=700&h=500&fit=crop" alt="สถาปัตยกรรมปูนเปลือยโทนเข้มพร้อมไฟสีแดง">
+      </div>
+      <div class="product-body">
+        <h3 data-lang-th="ปูนสีเข้ม เอกลักษณ์ภูคาน" data-lang-en="Noir Signature">ปูนสีเข้ม เอกลักษณ์ภูคาน</h3>
+        <p data-lang-th="ปูนพิกเมนต์เข้มสูตรเฉพาะของภูคาน ให้มู้ดลึกลับหรูหรา เหมาะกับพื้นที่ที่ต้องการความดราม่า" data-lang-en="Phukan's exclusive dark-pigmented compound — moody, dramatic, built for spaces that want to be remembered.">ปูนพิกเมนต์เข้มสูตรเฉพาะของภูคาน ให้มู้ดลึกลับหรูหรา เหมาะกับพื้นที่ที่ต้องการความดราม่า</p>
+        <span class="product-tag" data-lang-th="เหมาะกับ · บาร์ลับ, สตูดิโอ" data-lang-en="Best for · Speakeasies, Studios">เหมาะกับ · บาร์ลับ, สตูดิโอ</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="process" class="section">
+  <div class="section-head reveal">
+    <span class="eyebrow">HOW IT'S MADE</span>
+    <h2 data-lang-th="จากแร่ธาตุ สู่พื้นผิวที่จับต้องได้" data-lang-en="From raw mineral to tangible surface">จากแร่ธาตุ สู่พื้นผิวที่จับต้องได้</h2>
+    <p data-lang-th="ทุกถุงของภูคานผ่านห้าขั้นตอนที่ควบคุมด้วยมือและสายตาของช่างผู้ชำนาญ" data-lang-en="Every bag of Phukan passes through five stages, guided by hand and the eye of a master craftsman.">ทุกถุงของภูคานผ่านห้าขั้นตอนที่ควบคุมด้วยมือและสายตาของช่างผู้ชำนาญ</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-num">01</div>
+      <div class="timeline-body">
+        <h3 data-lang-th="คัดสรรแร่ธาตุตั้งต้น" data-lang-en="Mineral Sourcing">คัดสรรแร่ธาตุตั้งต้น</h3>
+        <p data-lang-th="เลือกหินปูนและแร่จากแหล่งที่ผ่านการตรวจสอบคุณภาพอย่างเข้มงวด" data-lang-en="Limestone and minerals sourced from quarries verified for strict quality standards.">เลือกหินปูนและแร่จากแหล่งที่ผ่านการตรวจสอบคุณภาพอย่างเข้มงวด</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-num">02</div>
+      <div class="timeline-body">
+        <h3 data-lang-th="บดละเอียดด้วยความแม่นยำ" data-lang-en="Precision Milling">บดละเอียดด้วยความแม่นยำ</h3>
+        <p data-lang-th="ควบคุมขนาดอนุภาคให้สม่ำเสมอ เพื่อผิวสัมผัสที่เรียบเนียนทุกล็อตการผลิต" data-lang-en="Particle size controlled to consistency, ensuring the same smooth texture in every batch.">ควบคุมขนาดอนุภาคให้สม่ำเสมอ เพื่อผิวสัมผัสที่เรียบเนียนทุกล็อตการผลิต</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-num">03</div>
+      <div class="timeline-body">
+        <h3 data-lang-th="ห้องแล็บสีและพิกเมนต์" data-lang-en="Pigment &amp; Blend Lab">ห้องแล็บสีและพิกเมนต์</h3>
+        <p data-lang-th="ผสมพิกเมนต์เฉพาะสูตร ทดสอบซ้ำจนได้เฉดสีที่นิ่งและคงทนต่อแสง" data-lang-en="Proprietary pigment blends, tested repeatedly for a stable tone that resists fading.">ผสมพิกเมนต์เฉพาะสูตร ทดสอบซ้ำจนได้เฉดสีที่นิ่งและคงทนต่อแสง</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-num">04</div>
+      <div class="timeline-body">
+        <h3 data-lang-th="เผาในเตาควบคุมอุณหภูมิ" data-lang-en="Controlled Kiln Firing">เผาในเตาควบคุมอุณหภูมิ</h3>
+        <p data-lang-th="ควบคุมอุณหภูมิอย่างแม่นยำ เพื่อความแข็งแรงและอายุการใช้งานที่ยาวนาน" data-lang-en="Precise temperature control for strength and long-term durability.">ควบคุมอุณหภูมิอย่างแม่นยำ เพื่อความแข็งแรงและอายุการใช้งานที่ยาวนาน</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-num">05</div>
+      <div class="timeline-body">
+        <h3 data-lang-th="ทดสอบตัวอย่างด้วยมือก่อนส่งมอบ" data-lang-en="Hand-Finished Sampling">ทดสอบตัวอย่างด้วยมือก่อนส่งมอบ</h3>
+        <p data-lang-th="ช่างฝีมือทดลองฉาบตัวอย่างจริงก่อนอนุมัติทุกล็อตให้ออกจากโรงงาน" data-lang-en="Craftsmen trowel real samples by hand before every batch is approved to leave the workshop.">ช่างฝีมือทดลองฉาบตัวอย่างจริงก่อนอนุมัติทุกล็อตให้ออกจากโรงงาน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="section">
+  <div class="section-head reveal">
+    <span class="eyebrow">WHY PHUKAN</span>
+    <h2 data-lang-th="เหตุผลที่สถาปนิกเลือกภูคาน" data-lang-en="Why architects choose Phukan">เหตุผลที่สถาปนิกเลือกภูคาน</h2>
+  </div>
+
+  <div class="why-row reveal">
+    <div class="why-media">
+      <img src="https://images.unsplash.com/photo-1679919085497-c53e74c5218e?w=800&h=900&fit=crop" alt="บันไดเวียนถ่ายภาพขาวดำ">
+    </div>
+    <div class="why-text">
+      <span class="eyebrow">PRECISION</span>
+      <h3 data-lang-th="ความแม่นยำในทุกกรัม" data-lang-en="Precision in every gram">ความแม่นยำในทุกกรัม</h3>
+      <p data-lang-th="ระบบควบคุมคุณภาพของเราตรวจสอบทุกล็อตการผลิต เพื่อให้ได้เนื้อสัมผัสและสีที่คงเส้นคงวา ไม่ว่าจะสั่งซื้อครั้งใด" data-lang-en="Our quality system checks every production batch, so texture and colour stay consistent order after order.">ระบบควบคุมคุณภาพของเราตรวจสอบทุกล็อตการผลิต เพื่อให้ได้เนื้อสัมผัสและสีที่คงเส้นคงวา ไม่ว่าจะสั่งซื้อครั้งใด</p>
+      <div class="why-stat"><b>±2%</b><span data-lang-th="ความคลาดเคลื่อนของเฉดสีต่อรอบผลิต" data-lang-en="colour variance per production run">ความคลาดเคลื่อนของเฉดสีต่อรอบผลิต</span></div>
+    </div>
+  </div>
+
+  <div class="why-row reverse reveal">
+    <div class="why-media">
+      <img src="https://images.unsplash.com/photo-1780664938331-728fd4872265?w=800&h=900&fit=crop" alt="รถแบ็คโฮทำงานกลางคืนใกล้แหล่งน้ำ">
+    </div>
+    <div class="why-text">
+      <span class="eyebrow">SUSTAINABLE</span>
+      <h3 data-lang-th="จัดหาวัตถุดิบอย่างรับผิดชอบ" data-lang-en="Responsibly sourced materials">จัดหาวัตถุดิบอย่างรับผิดชอบ</h3>
+      <p data-lang-th="เราคัดเลือกแหล่งแร่ที่ลดผลกระทบต่อสิ่งแวดล้อม และใช้กระบวนการผลิตที่ปล่อยคาร์บอนต่ำกว่ามาตรฐานทั่วไป" data-lang-en="We select mineral sources with lower environmental impact and production methods with reduced carbon output.">เราคัดเลือกแหล่งแร่ที่ลดผลกระทบต่อสิ่งแวดล้อม และใช้กระบวนการผลิตที่ปล่อยคาร์บอนต่ำกว่ามาตรฐานทั่วไป</p>
+      <div class="why-stat"><b>40%</b><span data-lang-th="ลดการปล่อยคาร์บอนเทียบมาตรฐานทั่วไป" data-lang-en="lower carbon output vs. standard cement">ลดการปล่อยคาร์บอนเทียบมาตรฐานทั่วไป</span></div>
+    </div>
+  </div>
+
+  <div class="why-row reveal">
+    <div class="why-media">
+      <img src="https://images.unsplash.com/photo-1714562601537-59d75f2e7d3d?w=800&h=900&fit=crop" alt="ช่างสวมหมวกนิรภัยกำลังทำงานกับท่อ">
+    </div>
+    <div class="why-text">
+      <span class="eyebrow">CRAFTSMANSHIP</span>
+      <h3 data-lang-th="ผลิตขนาดเล็ก ใส่ใจทุกรายละเอียด" data-lang-en="Small-batch craftsmanship">ผลิตขนาดเล็ก ใส่ใจทุกรายละเอียด</h3>
+      <p data-lang-th="เรารับผลิตล็อตเล็กเริ่มต้นเพียง 500 กิโลกรัม เพื่อรองรับโครงการที่ต้องการสูตรเฉพาะตัวจริงๆ" data-lang-en="We produce batches from just 500kg, for projects that genuinely need a custom formula.">เรารับผลิตล็อตเล็กเริ่มต้นเพียง 500 กิโลกรัม เพื่อรองรับโครงการที่ต้องการสูตรเฉพาะตัวจริงๆ</p>
+      <div class="why-stat"><b>500kg</b><span data-lang-th="ขนาดล็อตผลิตขั้นต่ำ" data-lang-en="minimum custom batch size">ขนาดล็อตผลิตขั้นต่ำ</span></div>
+    </div>
+  </div>
+
+  <div class="why-row reverse reveal">
+    <div class="why-media">
+      <img src="https://images.unsplash.com/photo-1779705925412-ed56faff61e9?w=800&h=900&fit=crop" alt="สถาปัตยกรรมปูนโค้งพร้อมหน้าต่างวงกลม">
+    </div>
+    <div class="why-text">
+      <span class="eyebrow">TRUSTED</span>
+      <h3 data-lang-th="ไว้วางใจโดยสถาปนิกกว่าร้อยราย" data-lang-en="Trusted by 100+ architects">ไว้วางใจโดยสถาปนิกกว่าร้อยราย</h3>
+      <p data-lang-th="จากโรงแรมบูทีคในภูเก็ต ไปจนถึงบาร์ลับใจกลางกรุงเทพฯ ภูคานคือชื่อที่สถาปนิกไว้วางใจซ้ำแล้วซ้ำเล่า" data-lang-en="From boutique hotels in Phuket to hidden bars in the heart of Bangkok, Phukan is the name architects return to.">จากโรงแรมบูทีคในภูเก็ต ไปจนถึงบาร์ลับใจกลางกรุงเทพฯ ภูคานคือชื่อที่สถาปนิกไว้วางใจซ้ำแล้วซ้ำเล่า</p>
+      <div class="why-stat"><b>120+</b><span data-lang-th="โครงการหรูที่ใช้ผลิตภัณฑ์ภูคาน" data-lang-en="premium projects using Phukan">โครงการหรูที่ใช้ผลิตภัณฑ์ภูคาน</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="section">
+  <div class="section-head reveal">
+    <span class="eyebrow">TEXTURE STUDY</span>
+    <h2 data-lang-th="รายละเอียดของพื้นผิวและแสง" data-lang-en="A study in surface and light">รายละเอียดของพื้นผิวและแสง</h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <figure class="g1"><img src="https://images.unsplash.com/photo-1736028165936-21969851973e?w=900&h=1000&fit=crop" alt="อาคารสีดำสูงตัดกับท้องฟ้า"><figcaption>Photo by <a href="https://unsplash.com/@hamburgphoto?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Lukas S</a></figcaption></figure>
+    <figure class="g2"><img src="https://images.unsplash.com/photo-1737032959204-23dbb1e5462c?w=600&h=500&fit=crop" alt="ผนังปูนสีเบจพร้อมหน้าต่างเล็ก"><figcaption>Photo by <a href="https://unsplash.com/@seamlesstextures?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Freddie</a></figcaption></figure>
+    <figure class="g3"><img src="https://images.unsplash.com/photo-1784559299573-8573ce1817a6?w=600&h=500&fit=crop" alt="ไซต์อุตสาหกรรมยามค่ำคืนพร้อมไซโล"><figcaption>Photo by <a href="https://unsplash.com/@kay_2103?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Kay Nauwelaerts</a></figcaption></figure>
+    <figure class="g4"><img src="https://images.unsplash.com/photo-1770822662967-7f66605f9103?w=1000&h=500&fit=crop" alt="คนงานก่อสร้างควบคุมเครื่องผสมปูนบนถนน"><figcaption>Photo by <a href="https://unsplash.com/@agustin_pimentel?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Agustín Pimentel</a></figcaption></figure>
+  </div>
+</section>
+
+<section id="testimonial">
+  <div class="t-bg"><img src="https://images.unsplash.com/photo-1557226217-bf0da2478e6c?w=1400&h=800&fit=crop" alt="ทางเดินปูนเปล่าที่เงียบสงบ"></div>
+  <div class="t-inner reveal">
+    <p data-lang-th="ภูคานเข้าใจว่าปูนซีเมนต์คือวัสดุที่มีชีวิต ทุกครั้งที่เราขอสูตรสีเฉพาะสำหรับโปรเจกต์ พวกเขาไม่เคยตอบว่าทำไม่ได้ — มีแต่คำถามว่าจะทำให้ดีกว่านี้อย่างไร" data-lang-en="Phukan understands that cement is a living material. Every time we ask for a custom tone, they never say it can't be done — only how it can be done better.">ภูคานเข้าใจว่าปูนซีเมนต์คือวัสดุที่มีชีวิต ทุกครั้งที่เราขอสูตรสีเฉพาะสำหรับโปรเจกต์ พวกเขาไม่เคยตอบว่าทำไม่ได้ — มีแต่คำถามว่าจะทำให้ดีกว่านี้อย่างไร</p>
+    <div class="who">
+      <img src="https://images.unsplash.com/photo-1776597172706-08d4ef926a56?w=200&h=200&fit=crop" alt="สถาปนิกผู้ให้คำรับรอง">
+      <div class="who-name">
+        <span data-lang-th="คุณอนันต์ วิริยะ" data-lang-en="Anan Wiriya">คุณอนันต์ วิริยะ</span>
+        <small data-lang-th="สถาปนิกอาวุโส, สตูดิโอออกแบบภายใน" data-lang-en="Senior Architect, Interior Design Studio">สถาปนิกอาวุโส, สตูดิโอออกแบบภายใน</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <span class="eyebrow">GET IN TOUCH</span>
+      <h2 data-lang-th="เริ่มต้นพื้นผิวของคุณกับภูคาน" data-lang-en="Start your surface with Phukan">เริ่มต้นพื้นผิวของคุณกับภูคาน</h2>
+      <p data-lang-th="นัดหมายเข้าชมโชว์รูมเพื่อสัมผัสตัวอย่างเนื้อปูนจริง หรือส่งรายละเอียดโครงการของคุณให้ทีมงานประเมินเบื้องต้น" data-lang-en="Book a showroom visit to feel our real material samples, or send us your project details for an initial assessment.">นัดหมายเข้าชมโชว์รูมเพื่อสัมผัสตัวอย่างเนื้อปูนจริง หรือส่งรายละเอียดโครงการของคุณให้ทีมงานประเมินเบื้องต้น</p>
+      <ul class="contact-list">
+        <li><i data-lucide="map-pin"></i><span data-lang-th="โชว์รูม: 289 ถนนสาทร แขวงยานนาวา กรุงเทพฯ 10120" data-lang-en="Showroom: 289 Sathorn Road, Yannawa, Bangkok 10120">โชว์รูม: 289 ถนนสาทร แขวงยานนาวา กรุงเทพฯ 10120</span></li>
+        <li><i data-lucide="phone"></i><span data-lang-th="02-114-8890" data-lang-en="+66 2-114-8890">02-114-8890</span></li>
+        <li><i data-lucide="mail"></i><span data-lang-th="atelier@phukan-cement.com" data-lang-en="atelier@phukan-cement.com">atelier@phukan-cement.com</span></li>
+        <li><i data-lucide="clock"></i><span data-lang-th="เปิดโชว์รูม อังคาร–อาทิตย์ 10:00–19:00 น." data-lang-en="Showroom open Tue–Sun, 10:00–19:00">เปิดโชว์รูม อังคาร–อาทิตย์ 10:00–19:00 น.</span></li>
+      </ul>
+    </div>
+    <form class="contact-form reveal" onsubmit="event.preventDefault(); this.reset(); alert(document.documentElement.lang==='th' ? 'ขอบคุณค่ะ ทีมงานจะติดต่อกลับเร็วๆ นี้' : 'Thank you — our team will be in touch shortly.');">
+      <div>
+        <label data-lang-th="ชื่อ" data-lang-en="Name">ชื่อ</label>
+        <input type="text" required>
+      </div>
+      <div>
+        <label data-lang-th="อีเมล" data-lang-en="Email">อีเมล</label>
+        <input type="email" required>
+      </div>
+      <div>
+        <label data-lang-th="รายละเอียดโครงการ" data-lang-en="Project Details">รายละเอียดโครงการ</label>
+        <textarea rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;" data-lang-th="ส่งข้อความ" data-lang-en="Send Message">ส่งข้อความ</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-logo">PHU<span>KAN</span></div>
+      <p data-lang-th="แบรนด์ปูนซีเมนต์และไมโครซีเมนต์ระดับพรีเมียม สำหรับพื้นที่ที่ต้องการความประณีต" data-lang-en="Premium cement and microcement for spaces that demand refinement.">แบรนด์ปูนซีเมนต์และไมโครซีเมนต์ระดับพรีเมียม สำหรับพื้นที่ที่ต้องการความประณีต</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-lang-th="เมนู" data-lang-en="Menu">เมนู</h4>
+      <ul>
+        <li><a href="#collection" data-lang-th="ผลิตภัณฑ์" data-lang-en="Collection">ผลิตภัณฑ์</a></li>
+        <li><a href="#process" data-lang-th="กระบวนการ" data-lang-en="Process">กระบวนการ</a></li>
+        <li><a href="#why" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+        <li><a href="#contact" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-lang-th="ติดตามเรา" data-lang-en="Follow">ติดตามเรา</h4>
+      <ul>
+        <li><a href="#" data-lang-th="อินสตาแกรม" data-lang-en="Instagram">อินสตาแกรม</a></li>
+        <li><a href="#" data-lang-th="พินเทอเรสต์" data-lang-en="Pinterest">พินเทอเรสต์</a></li>
+        <li><a href="#" data-lang-th="ไลน์" data-lang-en="LINE">ไลน์</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="credits" data-lang-th="เครดิตภาพถ่ายจาก Unsplash: " data-lang-en="Photo credits from Unsplash: ">เครดิตภาพถ่ายจาก Unsplash: </p>
+  <p class="credits">
+    <a href="https://unsplash.com/@rgaleriacom?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Ricardo Gomez Angel</a>,
+    <a href="https://unsplash.com/@hamburgphoto?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Lukas S</a>,
+    <a href="https://unsplash.com/@mrfrisby?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Stuart Frisby</a>,
+    <a href="https://unsplash.com/@seamlesstextures?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Freddie</a>,
+    <a href="https://unsplash.com/@andreajang?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Haechan Jang</a>,
+    <a href="https://unsplash.com/@hyewonphotography?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">HYEWON HWANG</a>,
+    <a href="https://unsplash.com/@justmejuliee?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Julia Taubitz</a>,
+    <a href="https://unsplash.com/@agustin_pimentel?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Agustín Pimentel</a>,
+    <a href="https://unsplash.com/@darrel23?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Darrel Louise Almanzor</a>,
+    <a href="https://unsplash.com/@niharjreddy?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Nihar Reddy Jangam</a>,
+    <a href="https://unsplash.com/@kay_2103?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Kay Nauwelaerts</a>,
+    <a href="https://unsplash.com/@neathhorn?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Monineath Horn</a>,
+    <a href="https://unsplash.com/@lexerium?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Alexander Van Steenberge</a>,
+    <a href="https://unsplash.com/@chriscreations__?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Christian Agbede</a>
+    on <a href="https://unsplash.com/?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Unsplash</a>.
+  </p>
+
+  <div class="footer-bottom">
+    <p data-lang-th="© 2569 ภูคาน. สงวนลิขสิทธิ์ทุกประการ" data-lang-en="© 2026 Phukan. All rights reserved.">© 2569 ภูคาน. สงวนลิขสิทธิ์ทุกประการ</p>
+    <a class="deelabs-badge" href="https://deelabs.co/?utm_source=client-site&utm_medium=badge" target="_blank" rel="noopener">Powered by DeeLabs</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(toggle && links){
+      toggle.addEventListener('click', function(){
+        links.classList.toggle('open');
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){ links.classList.remove('open'); });
+      });
+    }
+  })();
+
+  // Header shrink on scroll
+  (function(){
+    var header = document.getElementById('siteHeader');
+    function onScroll(){
+      if(window.scrollY > 20){ header.classList.add('scrolled'); }
+      else { header.classList.remove('scrolled'); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+
+  // Hero subtle parallax zoom
+  (function(){
+    var media = document.getElementById('heroMedia');
+    if(!media) return;
+    var img = media.querySelector('img');
+    window.addEventListener('scroll', function(){
+      var y = Math.min(window.scrollY, 400);
+      img.style.transform = 'scale(' + (1.06 + y*0.0003) + ') translateY(' + (y*0.08) + 'px)';
+    }, {passive:true});
+  })();
+
+  // Scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    items.forEach(function(el){ obs.observe(el); });
+  })();
+
+  lucide.createIcons();
+</script>
+
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+</body>
+</html>

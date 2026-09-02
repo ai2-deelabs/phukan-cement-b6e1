@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ภูคาน — ปูนซีเมนต์ที่งดงามดั่งบทกวี</title>
+<meta name="description" content="ภูคาน แบรนด์ปูนซีเมนต์และวัสดุก่อสร้างคุณภาพ คัดสรรด้วยหัวใจของช่างฝีมือ เพื่อบ้านที่คุณรักให้ยืนยาวอย่างมีสไตล์">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+  :root{
+    --background:#FCFAF6;
+    --card:#FFFFFF;
+    --bg-accent:#F5E9C8;
+    --foreground:#3A2E2C;
+    --muted:#8C7B6B;
+    --border:#E6D9C6;
+    --primary:#C97C8C;
+    --secondary:#D8E4D0;
+    --accent:#F2D9DF;
+    --font-heading:'Pridi', serif;
+    --font-body:'Sarabun', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--background);
+    color:var(--foreground);
+    font-family:var(--font-body);
+    font-weight:300;
+    line-height:1.9;
+    word-break:break-word;
+    overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;height:auto;display:block;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{
+    font-family:var(--font-heading);
+    font-weight:500;
+    line-height:1.5;
+    margin:0;
+    padding-top:0.25em;
+  }
+  section{position:relative;}
+  .container{max-width:1180px;margin:0 auto;padding:0 1.5rem;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(.2,.6,.2,1), transform 0.8s cubic-bezier(.2,.6,.2,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:0.12s;}
+  .reveal-delay-2{transition-delay:0.24s;}
+  .reveal-delay-3{transition-delay:0.36s;}
+
+  .eyebrow{
+    display:inline-block;
+    font-family:var(--font-body);
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--primary);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:0.9rem;
+  }
+  .eyebrow[lang-thai-active]{letter-spacing:0;}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.5em;
+    padding:0.95em 2em;
+    border-radius:999px;
+    font-family:var(--font-body);
+    font-size:1rem;
+    font-weight:500;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform 0.35s cubic-bezier(.2,.7,.3,1), box-shadow 0.35s ease, background 0.35s ease;
+    min-height:44px;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--primary);color:var(--foreground);}
+  .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 28px -12px rgba(201,124,140,0.55);}
+  .btn-secondary{background:transparent;color:var(--foreground);border-color:var(--foreground);}
+  .btn-secondary:hover{background:var(--foreground);color:var(--background);transform:translateY(-3px);}
+  .btn-ghost{background:var(--card);color:var(--foreground);border-color:var(--border);}
+  .btn-ghost:hover{background:var(--bg-accent);transform:translateY(-3px);}
+
+  /* ===== HEADER ===== */
+  #siteHeader{
+    position:sticky;top:0;z-index:1000;
+    background:rgba(252,250,246,0.72);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  #siteHeader.scrolled{
+    background:rgba(252,250,246,0.94);
+    border-bottom-color:var(--border);
+    box-shadow:0 10px 30px -20px rgba(58,46,44,0.25);
+  }
+  #siteHeader .header-inner{
+    max-width:1180px;margin:0 auto;padding:0 1.5rem;
+    display:flex;align-items:center;justify-content:space-between;
+    min-height:72px;
+  }
+  #siteHeader .logo{
+    font-family:var(--font-heading);
+    font-size:clamp(1.35rem,4vw,1.7rem);
+    font-weight:600;
+    white-space:nowrap;
+    color:var(--foreground);
+    letter-spacing:0.02em;
+    flex-shrink:0;
+  }
+  #siteHeader .logo span{color:var(--primary);}
+  #siteHeader .nav-toggle{
+    display:flex;
+    align-items:center;justify-content:center;
+    width:44px;height:44px;
+    background:transparent;border:none;
+    color:var(--foreground);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  #siteHeader .nav-menu{
+    display:none;
+    position:fixed;
+    top:72px;left:0;right:0;bottom:0;
+    background:rgba(252,250,246,0.99);
+    flex-direction:column;
+    align-items:stretch;
+    padding:1.5rem 1.5rem 2.5rem;
+    gap:0;
+    overflow-y:auto;
+  }
+  #siteHeader .nav-menu.open{display:flex;}
+  #siteHeader .nav-menu ul{
+    list-style:none;margin:0;padding:0;
+    display:flex;flex-direction:column;
+    border-top:1px solid var(--border);
+  }
+  #siteHeader .nav-menu ul li{border-bottom:1px solid var(--border);}
+  #siteHeader .nav-menu ul li a{
+    display:block;
+    padding:1.1rem 0.25rem;
+    font-size:1.05rem;
+    color:var(--foreground);
+  }
+  #siteHeader .nav-cta{margin-top:1.5rem;width:100%;}
+  #siteHeader .lang-sw{
+    display:flex;align-items:center;gap:0.35em;
+    font-size:0.8em;color:var(--foreground);
+    padding:0.5em 0.2em;
+    flex-shrink:0;
+    margin-right:0.4rem;
+  }
+  .header-actions{display:flex;align-items:center;gap:0.25rem;}
+
+  @media (min-width:900px){
+    #siteHeader .nav-toggle{display:none;}
+    #siteHeader .nav-menu{
+      display:flex !important;
+      position:static;
+      flex-direction:row;
+      align-items:center;
+      background:transparent;
+      padding:0;
+      gap:2.2rem;
+      overflow:visible;
+      width:auto;
+    }
+    #siteHeader .nav-menu ul{
+      flex-direction:row;
+      border-top:none;
+      gap:1.9rem;
+    }
+    #siteHeader .nav-menu ul li{border-bottom:none;}
+    #siteHeader .nav-menu ul li a{
+      padding:0.6rem 0.1rem;
+      font-size:0.96rem;
+      position:relative;
+    }
+    #siteHeader .nav-menu ul li a::after{
+      content:'';position:absolute;left:0;right:100%;bottom:0.3rem;height:1.5px;
+      background:var(--primary);transition:right 0.35s ease;
+    }
+    #siteHeader .nav-menu ul li a:hover::after{right:0;}
+    #siteHeader .nav-cta{margin-top:0;width:auto;padding:0.8em 1.7em;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:5.5rem 0 6rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .blob{
+    position:absolute;border-radius:50%;
+    filter:blur(2px);
+    opacity:0.55;
+    z-index:0;
+    animation:float 12s ease-in-out infinite;
+  }
+  .blob-1{width:280px;height:280px;background:var(--secondary);top:-60px;left:-90px;}
+  .blob-2{width:220px;height:220px;background:var(--accent);bottom:-40px;right:-60px;animation-delay:2s;}
+  .blob-3{width:140px;height:140px;background:var(--bg-accent);top:40%;left:6%;animation-delay:4s;}
+  @keyframes float{
+    0%,100%{transform:translateY(0) translateX(0);}
+    50%{transform:translateY(-22px) translateX(14px);}
+  }
+  .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+  .hero h1{
+    font-size:clamp(2.5rem,7.5vw,5rem);
+    font-weight:500;
+    padding-top:0.4em;
+    margin-bottom:0.6em;
+  }
+  .hero h1 em{font-style:italic;color:var(--primary);}
+  .hero p.lead{
+    font-size:clamp(1.02rem,2vw,1.2rem);
+    color:var(--muted);
+    max-width:560px;
+    margin:0 auto 2.4rem;
+    font-weight:300;
+  }
+  .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .hero-frame{
+    margin:4.5rem auto 0;
+    max-width:880px;
+    position:relative;
+  }
+  .hero-frame img{
+    border-radius:32px;
+    box-shadow:0 40px 80px -40px rgba(58,46,44,0.35);
+    border:8px solid var(--card);
+  }
+  .hero-frame::before{
+    content:'';
+    position:absolute;
+    inset:-14px;
+    border:1.5px solid var(--border);
+    border-radius:40px;
+    z-index:-1;
+  }
+
+  .wave{display:block;width:100%;height:auto;margin-bottom:-2px;}
+
+  /* ===== PHILOSOPHY ===== */
+  .philosophy{background:var(--bg-accent);padding:1rem 0 7rem;}
+  .philosophy-panel{
+    max-width:920px;margin:0 auto;
+    position:relative;
+    text-align:center;
+  }
+  .philosophy-panel img{
+    border-radius:28px;
+    width:100%;
+    max-height:460px;
+    object-fit:cover;
+  }
+  .quote-card{
+    background:var(--card);
+    max-width:600px;
+    margin:-4.5rem auto 0;
+    position:relative;
+    padding:2.6rem 2.2rem 2.2rem;
+    border-radius:24px;
+    box-shadow:0 30px 60px -30px rgba(58,46,44,0.3);
+    text-align:center;
+  }
+  .quote-card i{color:var(--primary);}
+  .quote-card p{
+    font-family:var(--font-heading);
+    font-style:italic;
+    font-size:clamp(1.1rem,2.4vw,1.4rem);
+    line-height:1.8;
+    margin:0.8rem 0 1rem;
+  }
+  .quote-card span{font-size:0.85rem;color:var(--muted);}
+  .philosophy-copy{max-width:640px;margin:3rem auto 0;text-align:center;color:var(--muted);}
+  .philosophy-copy p{margin:0 0 1.2rem;}
+
+  /* ===== PRODUCTS ===== */
+  .products{padding:7rem 0;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 4rem;}
+  .section-head h2{font-size:clamp(2rem,5vw,2.9rem);}
+  .section-head p{color:var(--muted);margin-top:1rem;}
+
+  .product-row{
+    display:flex;
+    align-items:center;
+    gap:3.5rem;
+    margin-bottom:5.5rem;
+    flex-wrap:wrap;
+  }
+  .product-row:last-child{margin-bottom:0;}
+  .product-row.reverse{flex-direction:row-reverse;}
+  .product-media{flex:1 1 380px;min-width:280px;position:relative;}
+  .product-media img{
+    border-radius:26px;
+    box-shadow:0 26px 50px -28px rgba(58,46,44,0.3);
+    aspect-ratio:4/3.2;
+    object-fit:cover;
+  }
+  .product-num{
+    position:absolute;top:-1.6rem;left:-0.6rem;
+    font-family:var(--font-heading);
+    font-size:5rem;
+    font-weight:700;
+    color:var(--card);
+    -webkit-text-stroke:1.5px var(--primary);
+    line-height:1;
+    z-index:2;
+    opacity:0.9;
+  }
+  .product-text{flex:1 1 380px;min-width:280px;}
+  .product-text h3{font-size:clamp(1.5rem,3.2vw,2.1rem);margin-bottom:1rem;}
+  .product-text p{color:var(--muted);margin-bottom:1.4rem;}
+  .tag-list{display:flex;flex-wrap:wrap;gap:0.6rem;}
+  .tag{
+    display:inline-flex;align-items:center;gap:0.4em;
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:0.5em 1em;
+    border-radius:999px;
+    font-size:0.85rem;
+    color:var(--foreground);
+  }
+  .tag i{color:var(--primary);width:14px;height:14px;}
+
+  /* ===== PROCESS ===== */
+  .process{background:var(--secondary);padding:7rem 0;position:relative;}
+  .timeline{max-width:660px;margin:0 auto;position:relative;}
+  .timeline::before{
+    content:'';
+    position:absolute;left:27px;top:10px;bottom:10px;width:1.5px;
+    background:var(--foreground);
+    opacity:0.18;
+  }
+  .step{display:flex;gap:1.7rem;margin-bottom:3rem;position:relative;}
+  .step:last-child{margin-bottom:0;}
+  .step-num{
+    flex:0 0 56px;height:56px;width:56px;
+    border-radius:50%;
+    background:var(--card);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-heading);
+    font-size:1.3rem;
+    color:var(--primary);
+    box-shadow:0 12px 24px -12px rgba(58,46,44,0.28);
+    z-index:1;
+    flex-shrink:0;
+  }
+  .step-body{padding-top:0.5rem;min-width:0;}
+  .step-body h4{font-size:1.25rem;margin-bottom:0.5rem;}
+  .step-body p{color:var(--muted);margin:0;}
+
+  /* ===== GALLERY ===== */
+  .gallery{padding:7rem 0;}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1.2rem;
+  }
+  .gallery-item{
+    position:relative;
+    border-radius:22px;
+    overflow:hidden;
+    min-width:0;
+    aspect-ratio:1/1;
+  }
+  .gallery-item img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform 0.6s ease;
+  }
+  .gallery-item:hover img{transform:scale(1.08);}
+  .gallery-item::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(58,46,44,0) 55%, rgba(58,46,44,0.45) 100%);
+    opacity:0;transition:opacity 0.4s ease;
+  }
+  .gallery-item:hover::after{opacity:1;}
+  @media (min-width:640px){
+    .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+  }
+
+  /* ===== TESTIMONIAL ===== */
+  .testimonial{background:var(--accent);padding:7rem 0;}
+  .t-wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:3rem;}
+  .t-card{text-align:center;}
+  .t-card i{color:var(--primary);margin-bottom:1rem;}
+  .t-card p{
+    font-family:var(--font-heading);
+    font-style:italic;
+    font-size:clamp(1.15rem,2.6vw,1.6rem);
+    line-height:1.85;
+    margin:0 0 1.2rem;
+  }
+  .t-card span{color:var(--muted);font-size:0.9rem;}
+
+  /* ===== CONTACT ===== */
+  .contact{background:var(--bg-accent);padding:7rem 0;}
+  .contact-wrap{
+    max-width:960px;margin:0 auto;
+    display:flex;gap:3rem;flex-wrap:wrap;
+  }
+  .contact-info{flex:1 1 300px;min-width:280px;}
+  .contact-info ul{list-style:none;padding:0;margin:1.8rem 0 0;}
+  .contact-info li{
+    display:flex;gap:1rem;align-items:flex-start;
+    margin-bottom:1.4rem;
+  }
+  .contact-info li i{
+    flex-shrink:0;width:22px;height:22px;color:var(--primary);
+    margin-top:0.2rem;
+  }
+  .contact-info li div{min-width:0;color:var(--muted);}
+  .contact-info li strong{display:block;color:var(--foreground);font-weight:500;margin-bottom:0.15rem;}
+  .contact-form{
+    flex:1 1 340px;min-width:280px;
+    background:var(--card);
+    border-radius:26px;
+    padding:2.4rem;
+    box-shadow:0 30px 60px -34px rgba(58,46,44,0.3);
+  }
+  .contact-form label{
+    display:block;font-size:0.88rem;color:var(--muted);margin-bottom:0.4rem;
+  }
+  .field{margin-bottom:1.3rem;}
+  .contact-form input, .contact-form textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--background);
+    border-radius:14px;
+    padding:0.9em 1.1em;
+    font-family:var(--font-body);
+    font-size:1rem;
+    color:var(--foreground);
+    resize:vertical;
+    min-height:44px;
+  }
+  .contact-form textarea{min-height:110px;}
+  .contact-form input:focus, .contact-form textarea:focus{
+    outline:none;border-color:var(--primary);
+  }
+  .contact-form .btn{width:100%;margin-top:0.4rem;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--foreground);color:var(--background);padding:5rem 0 2.5rem;}
+  .footer-top{
+    display:flex;flex-wrap:wrap;gap:3rem;
+    justify-content:space-between;
+    margin-bottom:3rem;
+  }
+  .footer-brand{flex:1 1 260px;min-width:240px;}
+  .footer-brand .logo{
+    font-family:var(--font-heading);font-size:1.7rem;color:var(--background);margin-bottom:1rem;
+  }
+  .footer-brand p{color:var(--border);max-width:340px;}
+  .footer-links{flex:1 1 160px;min-width:150px;}
+  .footer-links h5{
+    font-family:var(--font-body);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--border);margin-bottom:1.1rem;font-weight:600;
+  }
+  .footer-links ul{list-style:none;padding:0;margin:0;}
+  .footer-links li{margin-bottom:0.8rem;}
+  .footer-links a{color:var(--background);opacity:0.85;transition:opacity 0.3s ease;}
+  .footer-links a:hover{opacity:1;text-decoration:underline;}
+  .footer-bottom{
+    border-top:1px solid rgba(252,250,246,0.15);
+    padding-top:2rem;
+    display:flex;flex-wrap:wrap;gap:1rem;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.85rem;
+    color:var(--border);
+  }
+  .credits{margin-top:1.5rem;font-size:0.78rem;color:var(--border);opacity:0.8;line-height:2.1;}
+  .credits a{text-decoration:underline;}
+  .deelabs-badge{color:var(--border);font-size:0.75rem;font-weight:400;opacity:0.85;}
+  .deelabs-badge:hover{opacity:1;}
+
+  @media (min-width:768px){
+    .hero{padding:7.5rem 0 8rem;}
+    .products, .process, .gallery, .testimonial, .contact{padding:9rem 0;}
+    .contact-wrap{gap:5rem;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="#home" class="logo">Phukan<span>.</span></a>
+    <div class="header-actions">
+      <div class="lang-sw" role="button" aria-label="Toggle language">
+        <i data-lucide="globe" width="14" height="14"></i>
+        <span class="lang-sw__label">TH</span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="เปิดเมนู">
+        <i data-lucide="menu" id="navToggleIcon"></i>
+      </button>
+    </div>
+    <nav class="nav-menu" id="navMenu">
+      <ul>
+        <li><a href="#home" class="nav-link" data-lang-th="หน้าแรก" data-lang-en="Home">หน้าแรก</a></li>
+        <li><a href="#philosophy" class="nav-link" data-lang-th="เรื่องราว" data-lang-en="Story">เรื่องราว</a></li>
+        <li><a href="#products" class="nav-link" data-lang-th="ผลิตภัณฑ์" data-lang-en="Products">ผลิตภัณฑ์</a></li>
+        <li><a href="#process" class="nav-link" data-lang-th="งานฝีมือ" data-lang-en="Craft">งานฝีมือ</a></li>
+        <li><a href="#gallery" class="nav-link" data-lang-th="แกลเลอรี" data-lang-en="Gallery">แกลเลอรี</a></li>
+        <li><a href="#contact" class="nav-link" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary nav-cta" data-lang-th="ติดต่อเรา" data-lang-en="Get in Touch">ติดต่อเรา</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="container hero-inner">
+      <span class="eyebrow reveal" data-lang-th="บทนำ" data-lang-en="Prologue">บทนำ</span>
+      <h1 class="reveal reveal-delay-1">
+        <span data-lang-th="ปูนซีเมนต์ที่งดงาม" data-lang-en="Cement, Composed">ปูนซีเมนต์ที่งดงาม</span><br>
+        <em data-lang-th="ดั่งบทกวี" data-lang-en="Like Poetry">ดั่งบทกวี</em>
+      </h1>
+      <p class="lead reveal reveal-delay-2" data-lang-th="ภูคาน คัดสรรวัสดุก่อสร้างคุณภาพด้วยหัวใจของช่างฝีมือ เพื่อบ้านที่คุณรัก ให้ยืนยาวอย่างมีสไตล์" data-lang-en="Phukan curates fine cement and building materials with an artisan's heart — for homes built to last, and to be loved.">ภูคาน คัดสรรวัสดุก่อสร้างคุณภาพด้วยหัวใจของช่างฝีมือ เพื่อบ้านที่คุณรัก ให้ยืนยาวอย่างมีสไตล์</p>
+      <div class="hero-ctas reveal reveal-delay-3">
+        <a href="#products" class="btn btn-primary" data-lang-th="ดูผลิตภัณฑ์ของเรา" data-lang-en="Explore Our Products">ดูผลิตภัณฑ์ของเรา</a>
+        <a href="#contact" class="btn btn-secondary" data-lang-th="ติดต่อสอบถาม" data-lang-en="Get in Touch">ติดต่อสอบถาม</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="hero-frame reveal">
+        <img src="https://images.unsplash.com/photo-1524228461686-3de5d5289d09?w=1200&h=680&fit=crop" alt="อาคารคอนกรีตสีครีมพาสเทลในบรรยากาศสงบ">
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none"><path style="fill:var(--bg-accent)" d="M0,40 C240,100 480,0 720,30 C960,60 1200,110 1440,50 L1440,100 L0,100 Z"></path></svg>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="container">
+      <div class="philosophy-panel reveal">
+        <img src="https://images.unsplash.com/photo-1784309217739-1d393effda93?w=1000&h=600&fit=crop" alt="อาคารสีเขียวมินต์และสีพีชแบบพาสเทลตัดกับท้องฟ้าใส">
+        <div class="quote-card">
+          <i data-lucide="quote" width="26" height="26"></i>
+          <p data-lang-th="เราเชื่อว่าปูนซีเมนต์ไม่ใช่แค่วัสดุก่อสร้าง แต่คือบทแรกของทุกเรื่องราวที่จะเกิดขึ้นภายในบ้าน" data-lang-en="We believe cement is not merely a material — it is the first sentence of every story a home will ever tell.">เราเชื่อว่าปูนซีเมนต์ไม่ใช่แค่วัสดุก่อสร้าง แต่คือบทแรกของทุกเรื่องราวที่จะเกิดขึ้นภายในบ้าน</p>
+          <span data-lang-th="— คำมั่นของภูคาน" data-lang-en="— The Phukan Promise">— คำมั่นของภูคาน</span>
+        </div>
+      </div>
+      <div class="philosophy-copy reveal reveal-delay-1">
+        <span class="eyebrow" data-lang-th="บทที่หนึ่ง · ปรัชญา" data-lang-en="Chapter One — Philosophy">บทที่หนึ่ง · ปรัชญา</span>
+        <p data-lang-th="ภูคานเริ่มต้นจากความตั้งใจเล็กๆ ของช่างปูนรุ่นแรก ที่อยากเห็นบ้านทุกหลังแข็งแรงโดยไม่ต้องละทิ้งความงาม เราจึงคัดสรรวัตถุดิบอย่างพิถีพิถัน ผสมผสานกับเทคนิคดั้งเดิมและมาตรฐานสากล เพื่อให้ทุกถุงปูนที่ส่งถึงมือคุณ เต็มไปด้วยความใส่ใจในทุกรายละเอียด" data-lang-en="Phukan began with a small intention from a first-generation cement craftsman — to see every home stand strong without giving up its beauty. We source materials with great care, blending traditional technique with international standards, so every bag that reaches you carries attention in every detail.">ภูคานเริ่มต้นจากความตั้งใจเล็กๆ ของช่างปูนรุ่นแรก ที่อยากเห็นบ้านทุกหลังแข็งแรงโดยไม่ต้องละทิ้งความงาม เราจึงคัดสรรวัตถุดิบอย่างพิถีพิถัน ผสมผสานกับเทคนิคดั้งเดิมและมาตรฐานสากล เพื่อให้ทุกถุงปูนที่ส่งถึงมือคุณ เต็มไปด้วยความใส่ใจในทุกรายละเอียด</p>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 100" preserveAspectRatio="none" style="transform:scaleY(-1);margin-top:-2px;"><path style="fill:var(--background)" d="M0,40 C240,100 480,0 720,30 C960,60 1200,110 1440,50 L1440,100 L0,100 Z"></path></svg>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-lang-th="บทที่สอง · ผลิตภัณฑ์" data-lang-en="Chapter Two — The Collection">บทที่สอง · ผลิตภัณฑ์</span>
+        <h2 data-lang-th="คอลเล็กชันปูนภูคาน" data-lang-en="The Phukan Collection">คอลเล็กชันปูนภูคาน</h2>
+        <p data-lang-th="สามผลิตภัณฑ์หลักที่ออกแบบมาเพื่อทุกขั้นตอนของบ้านคุณ ตั้งแต่โครงสร้างจนถึงผิวสัมผัสสุดท้าย" data-lang-en="Three core products designed for every stage of your home — from structure to the final finishing touch.">สามผลิตภัณฑ์หลักที่ออกแบบมาเพื่อทุกขั้นตอนของบ้านคุณ ตั้งแต่โครงสร้างจนถึงผิวสัมผัสสุดท้าย</p>
+      </div>
+
+      <div class="product-row reveal">
+        <div class="product-media">
+          <span class="product-num">01</span>
+          <img src="https://images.unsplash.com/photo-1600456899121-68eda5705257?w=700&h=560&fit=crop" alt="พื้นผิวปูนซีเมนต์สีเทาอ่อนเนื้อละเอียด">
+        </div>
+        <div class="product-text">
+          <h3 data-lang-th="ปูนซีเมนต์ปอร์ตแลนด์ ภูคาน" data-lang-en="Phukan Portland Cement">ปูนซีเมนต์ปอร์ตแลนด์ ภูคาน</h3>
+          <p data-lang-th="รากฐานที่มั่นคงของทุกงานก่อสร้าง ผลิตจากวัตถุดิบคุณภาพสูง ให้กำลังอัดสูงและแข็งตัวสม่ำเสมอ เหมาะสำหรับงานโครงสร้างที่ต้องการความไว้วางใจได้ในระยะยาว" data-lang-en="The steady foundation of every build. Made from premium raw materials for high compressive strength and consistent curing — trusted for structural work that must last a lifetime.">รากฐานที่มั่นคงของทุกงานก่อสร้าง ผลิตจากวัตถุดิบคุณภาพสูง ให้กำลังอัดสูงและแข็งตัวสม่ำเสมอ เหมาะสำหรับงานโครงสร้างที่ต้องการความไว้วางใจได้ในระยะยาว</p>
+          <div class="tag-list">
+            <span class="tag"><i data-lucide="shield-check"></i><span data-lang-th="แข็งแรงทนทาน" data-lang-en="Durable Strength">แข็งแรงทนทาน</span></span>
+            <span class="tag"><i data-lucide="award"></i><span data-lang-th="มาตรฐาน มอก." data-lang-en="TIS Certified">มาตรฐาน มอก.</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-row reverse reveal">
+        <div class="product-media">
+          <span class="product-num">02</span>
+          <img src="https://images.unsplash.com/photo-1635249578213-68b0aa67fdf7?w=700&h=560&fit=crop" alt="ช่างก่อสร้างสวมหมวกนิรภัยกำลังทำงานที่ไซต์งาน">
+        </div>
+        <div class="product-text">
+          <h3 data-lang-th="ปูนสำเร็จรูปสูตรพิเศษ" data-lang-en="Phukan Ready-Mix Blend">ปูนสำเร็จรูปสูตรพิเศษ</h3>
+          <p data-lang-th="ผสมเสร็จ พร้อมใช้ทันที ลดขั้นตอนหน้างานโดยไม่ลดทอนคุณภาพ ให้เนื้อปูนเนียนสม่ำเสมอทุกถุง เพื่อความรวดเร็วของช่างและความเรียบร้อยของผลงาน" data-lang-en="Pre-blended and ready to use — fewer steps on site without compromising quality. Every bag delivers consistent texture, giving builders speed and flawless results.">ผสมเสร็จ พร้อมใช้ทันที ลดขั้นตอนหน้างานโดยไม่ลดทอนคุณภาพ ให้เนื้อปูนเนียนสม่ำเสมอทุกถุง เพื่อความรวดเร็วของช่างและความเรียบร้อยของผลงาน</p>
+          <div class="tag-list">
+            <span class="tag"><i data-lucide="clock"></i><span data-lang-th="สะดวก รวดเร็ว" data-lang-en="Fast & Convenient">สะดวก รวดเร็ว</span></span>
+            <span class="tag"><i data-lucide="leaf"></i><span data-lang-th="เป็นมิตรต่อสิ่งแวดล้อม" data-lang-en="Eco-Conscious">เป็นมิตรต่อสิ่งแวดล้อม</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-row reveal">
+        <div class="product-media">
+          <span class="product-num">03</span>
+          <img src="https://images.unsplash.com/photo-1750437917600-6536b26fe87d?w=700&h=560&fit=crop" alt="ห้องโล่งตกแต่งเรียบง่ายผนังปูนขัดมัน แสงธรรมชาติส่องผ่านหน้าต่างบานใหญ่">
+        </div>
+        <div class="product-text">
+          <h3 data-lang-th="ปูนฉาบตกแต่งผิวนวล" data-lang-en="Phukan Velvet Finish Plaster">ปูนฉาบตกแต่งผิวนวล</h3>
+          <p data-lang-th="ปูนฉาบผิวเรียบเนียนดั่งกำมะหยี่ ให้โทนสีนุ่มนวลสไตล์พาสเทล เหมาะสำหรับผนังภายในที่ต้องการความอบอุ่นราวกับหลุดออกมาจากหน้าหนังสือนิทาน" data-lang-en="A velvet-smooth finishing plaster in soft pastel tones — for interior walls that feel as warm and gentle as a page from a storybook.">ปูนฉาบผิวเรียบเนียนดั่งกำมะหยี่ ให้โทนสีนุ่มนวลสไตล์พาสเทล เหมาะสำหรับผนังภายในที่ต้องการความอบอุ่นราวกับหลุดออกมาจากหน้าหนังสือนิทาน</p>
+          <div class="tag-list">
+            <span class="tag"><i data-lucide="sparkles"></i><span data-lang-th="ผิวสัมผัสละเอียด" data-lang-en="Fine Texture">ผิวสัมผัสละเอียด</span></span>
+            <span class="tag"><i data-lucide="palette"></i><span data-lang-th="โทนสีพาสเทล" data-lang-en="Pastel Tones">โทนสีพาสเทล</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-lang-th="บทที่สาม · งานฝีมือ" data-lang-en="Chapter Three — Craft">บทที่สาม · งานฝีมือ</span>
+        <h2 data-lang-th="จากเนินเขาสู่ผนังบ้าน" data-lang-en="From the Quarry to Your Wall">จากเนินเขาสู่ผนังบ้าน</h2>
+        <p data-lang-th="ทุกถุงปูนภูคานผ่านสี่ขั้นตอนที่พิถีพิถัน ก่อนจะเดินทางมาถึงมือช่างและบ้านของคุณ" data-lang-en="Every bag of Phukan cement passes through four careful stages before it reaches your builder's hands.">ทุกถุงปูนภูคานผ่านสี่ขั้นตอนที่พิถีพิถัน ก่อนจะเดินทางมาถึงมือช่างและบ้านของคุณ</p>
+      </div>
+      <div class="timeline">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4 data-lang-th="คัดสรรวัตถุดิบ" data-lang-en="Sourcing the Raw Stone">คัดสรรวัตถุดิบ</h4>
+            <p data-lang-th="เลือกหินปูนคุณภาพสูงจากแหล่งที่ผ่านการตรวจสอบมาตรฐานอย่างเข้มงวด" data-lang-en="High-grade limestone selected from rigorously inspected quarries.">เลือกหินปูนคุณภาพสูงจากแหล่งที่ผ่านการตรวจสอบมาตรฐานอย่างเข้มงวด</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4 data-lang-th="เผาและบดอย่างพิถีพิถัน" data-lang-en="Fired & Milled with Care">เผาและบดอย่างพิถีพิถัน</h4>
+            <p data-lang-th="ควบคุมอุณหภูมิและความละเอียดของการบด เพื่อเนื้อปูนที่สม่ำเสมอทุกรุ่นการผลิต" data-lang-en="Temperature and grind fineness are controlled for consistent quality in every batch.">ควบคุมอุณหภูมิและความละเอียดของการบด เพื่อเนื้อปูนที่สม่ำเสมอทุกรุ่นการผลิต</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4 data-lang-th="ควบคุมคุณภาพทุกถุง" data-lang-en="Quality Checked, Bag by Bag">ควบคุมคุณภาพทุกถุง</h4>
+            <p data-lang-th="ทีมวิศวกรตรวจสอบกำลังอัดและความชื้นก่อนบรรจุ เพื่อความมั่นใจในทุกถุงที่ส่งออก" data-lang-en="Our engineers verify compressive strength and moisture before packing every single bag.">ทีมวิศวกรตรวจสอบกำลังอัดและความชื้นก่อนบรรจุ เพื่อความมั่นใจในทุกถุงที่ส่งออก</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4 data-lang-th="ส่งถึงมือช่างและบ้านคุณ" data-lang-en="Delivered to Your Builder's Hands">ส่งถึงมือช่างและบ้านคุณ</h4>
+            <p data-lang-th="จัดส่งตรงเวลาทั่วประเทศ พร้อมคำแนะนำการใช้งานจากทีมผู้เชี่ยวชาญของเรา" data-lang-en="Delivered on time nationwide, with usage guidance from our team of specialists.">จัดส่งตรงเวลาทั่วประเทศ พร้อมคำแนะนำการใช้งานจากทีมผู้เชี่ยวชาญของเรา</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-lang-th="บทที่สี่ · แกลเลอรี" data-lang-en="Chapter Four — Gallery">บทที่สี่ · แกลเลอรี</span>
+        <h2 data-lang-th="เรื่องราวที่ปูนสร้างขึ้น" data-lang-en="Spaces Cement Has Shaped">เรื่องราวที่ปูนสร้างขึ้น</h2>
+        <p data-lang-th="ภาพบรรยากาศจากบ้านและพื้นที่ที่ปูนภูคานได้เป็นส่วนหนึ่งของเรื่องราว" data-lang-en="A glimpse into the homes and spaces where Phukan cement has become part of the story.">ภาพบรรยากาศจากบ้านและพื้นที่ที่ปูนภูคานได้เป็นส่วนหนึ่งของเรื่องราว</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1777987956542-1edd0c7488d9?w=420&h=420&fit=crop" alt="ห้องว่างเปล่าตกแต่งเรียบง่าย มีม้านั่งไม้และหน้าต่างบานใหญ่">
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1691415058595-d18acf8bd102?w=420&h=420&fit=crop" alt="อาคารคอนกรีตพร้อมท่อกลมกลางอาคาร">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1689942010216-dc412bb1e7a9?w=420&h=420&fit=crop" alt="คลังสินค้าจัดเก็บพาเลทวัสดุก่อสร้างจำนวนมาก">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1713982154438-e411b95917a2?w=420&h=420&fit=crop" alt="อาคารหลากสีพาสเทลพร้อมหน้าต่างทรงสี่เหลี่ยม">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial" id="testimonial">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-lang-th="บทที่ห้า · เสียงจากลูกค้า" data-lang-en="Chapter Five — Voices">บทที่ห้า · เสียงจากลูกค้า</span>
+        <h2 data-lang-th="เสียงเล่าจากผู้ที่เคยร่วมงาน" data-lang-en="Told by Those Who Built With Us">เสียงเล่าจากผู้ที่เคยร่วมงาน</h2>
+      </div>
+      <div class="t-wrap">
+        <div class="t-card reveal">
+          <i data-lucide="quote" width="24" height="24"></i>
+          <p data-lang-th="ปูนภูคานทำให้งานก่อสร้างบ้านของเราราบรื่นราวกับอ่านนิยายจบเล่มหนึ่งอย่างสบายใจ ไม่มีเรื่องให้กังวลเลยตลอดทั้งโครงการ" data-lang-en="Working with Phukan cement made our home build feel as unhurried and satisfying as finishing a good novel — nothing to worry about, from start to end.">ปูนภูคานทำให้งานก่อสร้างบ้านของเราราบรื่นราวกับอ่านนิยายจบเล่มหนึ่งอย่างสบายใจ ไม่มีเรื่องให้กังวลเลยตลอดทั้งโครงการ</p>
+          <span data-lang-th="— คุณสมชาย, ผู้รับเหมาก่อสร้าง" data-lang-en="— Somchai, Building Contractor">— คุณสมชาย, ผู้รับเหมาก่อสร้าง</span>
+        </div>
+        <div class="t-card reveal reveal-delay-1">
+          <i data-lucide="quote" width="24" height="24"></i>
+          <p data-lang-th="สีและพื้นผิวของปูนฉาบภูคาน ทำให้บ้านของเราดูอบอุ่นราวกับหลุดออกมาจากหนังสือนิทานเล่มโปรด" data-lang-en="The tones and texture of Phukan's finish plaster make our home look like it stepped out of a favourite storybook.">สีและพื้นผิวของปูนฉาบภูคาน ทำให้บ้านของเราดูอบอุ่นราวกับหลุดออกมาจากหนังสือนิทานเล่มโปรด</p>
+          <span data-lang-th="— คุณพิมพ์ใจ, เจ้าของบ้าน" data-lang-en="— Pimjai, Homeowner">— คุณพิมพ์ใจ, เจ้าของบ้าน</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-lang-th="บทส่งท้าย" data-lang-en="Epilogue">บทส่งท้าย</span>
+        <h2 data-lang-th="เริ่มต้นบทใหม่ของบ้านคุณ" data-lang-en="Begin a New Chapter for Your Home">เริ่มต้นบทใหม่ของบ้านคุณ</h2>
+        <p data-lang-th="ทักทายเราได้ทุกวัน ทีมงานภูคานพร้อมให้คำแนะนำเรื่องวัสดุก่อสร้างอย่างเป็นกันเอง" data-lang-en="Say hello anytime — the Phukan team is happy to guide you through choosing the right materials.">ทักทายเราได้ทุกวัน ทีมงานภูคานพร้อมให้คำแนะนำเรื่องวัสดุก่อสร้างอย่างเป็นกันเอง</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <ul>
+            <li>
+              <i data-lucide="map-pin"></i>
+              <div>
+                <strong data-lang-th="ที่อยู่โรงงานและสำนักงาน" data-lang-en="Factory & Office">ที่อยู่โรงงานและสำนักงาน</strong>
+                <span data-lang-th="89/4 ถนนสุขุมวิท ตำบลบางพลี อำเภอบางพลี จังหวัดสมุทรปราการ 10540" data-lang-en="89/4 Sukhumvit Road, Bang Phli, Samut Prakan 10540">89/4 ถนนสุขุมวิท ตำบลบางพลี อำเภอบางพลี จังหวัดสมุทรปราการ 10540</span>
+              </div>
+            </li>
+            <li>
+              <i data-lucide="phone"></i>
+              <div>
+                <strong data-lang-th="โทรศัพท์" data-lang-en="Phone">โทรศัพท์</strong>
+                <span>081-234-5678</span>
+              </div>
+            </li>
+            <li>
+              <i data-lucide="mail"></i>
+              <div>
+                <strong data-lang-th="อีเมล" data-lang-en="Email">อีเมล</strong>
+                <span>hello@phukancement.com</span>
+              </div>
+            </li>
+            <li>
+              <i data-lucide="clock"></i>
+              <div>
+                <strong data-lang-th="เวลาทำการ" data-lang-en="Business Hours">เวลาทำการ</strong>
+                <span data-lang-th="จันทร์–เสาร์ 8:00–17:00 น." data-lang-en="Mon–Sat, 8:00–17:00">จันทร์–เสาร์ 8:00–17:00 น.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault();">
+          <div class="field">
+            <label data-lang-th="ชื่อของคุณ" data-lang-en="Your Name">ชื่อของคุณ</label>
+            <input type="text" placeholder="" required>
+          </div>
+          <div class="field">
+            <label data-lang-th="อีเมลหรือเบอร์โทร" data-lang-en="Email or Phone">อีเมลหรือเบอร์โทร</label>
+            <input type="text" placeholder="" required>
+          </div>
+          <div class="field">
+            <label data-lang-th="ข้อความถึงเรา" data-lang-en="Your Message">ข้อความถึงเรา</label>
+            <textarea placeholder=""></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="send" width="16" height="16"></i>
+            <span data-lang-th="ส่งข้อความ" data-lang-en="Send Message">ส่งข้อความ</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">Phukan.</div>
+        <p data-lang-th="ปูนซีเมนต์และวัสดุก่อสร้างคุณภาพ คัดสรรด้วยหัวใจของช่างฝีมือ เพื่อบ้านที่คุณรัก" data-lang-en="Fine cement and building materials, curated with an artisan's heart — for the home you love.">ปูนซีเมนต์และวัสดุก่อสร้างคุณภาพ คัดสรรด้วยหัวใจของช่างฝีมือ เพื่อบ้านที่คุณรัก</p>
+      </div>
+      <div class="footer-links">
+        <h5 data-lang-th="สำรวจ" data-lang-en="Explore">สำรวจ</h5>
+        <ul>
+          <li><a href="#philosophy" data-lang-th="เรื่องราวของเรา" data-lang-en="Our Story">เรื่องราวของเรา</a></li>
+          <li><a href="#products" data-lang-th="ผลิตภัณฑ์" data-lang-en="Products">ผลิตภัณฑ์</a></li>
+          <li><a href="#gallery" data-lang-th="แกลเลอรี" data-lang-en="Gallery">แกลเลอรี</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5 data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</h5>
+        <ul>
+          <li><a href="tel:0812345678">081-234-5678</a></li>
+          <li><a href="mailto:hello@phukancement.com">hello@phukancement.com</a></li>
+          <li><a href="#contact" data-lang-th="ส่งข้อความถึงเรา" data-lang-en="Send a Message">ส่งข้อความถึงเรา</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-lang-th="© 2569 ภูคาน ซีเมนต์ สงวนลิขสิทธิ์" data-lang-en="© 2026 Phukan Cement. All rights reserved.">© 2569 ภูคาน ซีเมนต์ สงวนลิขสิทธิ์</span>
+      <a class="deelabs-badge" href="https://deelabs.co/?utm_source=client-site&utm_medium=badge" target="_blank" rel="noopener">Powered by DeeLabs</a>
+    </div>
+    <div class="credits" data-lang-th="เครดิตภาพ:" data-lang-en="Photo credits:">เครดิตภาพ:
+      <a href="https://unsplash.com/@anniespratt?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Annie Spratt on Unsplash</a> ·
+      <a href="https://unsplash.com/@soujest?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Sou Jest on Unsplash</a> ·
+      <a href="https://unsplash.com/@ekarchmit?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Ernest Karchmit on Unsplash</a> ·
+      <a href="https://unsplash.com/@miinrad?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Mina Rad on Unsplash</a> ·
+      <a href="https://unsplash.com/@pelloche?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Sébastien Lavalaye on Unsplash</a> ·
+      <a href="https://unsplash.com/@fertroulik?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Fer Troulik on Unsplash</a> ·
+      <a href="https://unsplash.com/@rgaleriacom?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Ricardo Gomez Angel on Unsplash</a> ·
+      <a href="https://unsplash.com/@afinisgroup?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by AFINIS Group on Unsplash</a> ·
+      <a href="https://unsplash.com/@hamburgphoto?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Photo by Lukas S on Unsplash</a> ·
+      <span data-lang-th="ภาพทั้งหมดจาก" data-lang-en="All photos from">ภาพทั้งหมดจาก</span> <a href="https://unsplash.com/?utm_source=deelabs&utm_medium=referral" target="_blank" rel="noopener nofollow">Unsplash</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll shrink
+  var header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 12){ header.classList.add('scrolled'); }
+    else { header.classList.remove('scrolled'); }
+  });
+
+  // Mobile nav toggle
+  var navToggle = document.getElementById('navToggle');
+  var navMenu = document.getElementById('navMenu');
+  var navToggleIcon = document.getElementById('navToggleIcon');
+  navToggle.addEventListener('click', function(){
+    var isOpen = navMenu.classList.toggle('open');
+    navToggleIcon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+    lucide.createIcons();
+  });
+  document.querySelectorAll('.nav-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navMenu.classList.remove('open');
+      navToggleIcon.setAttribute('data-lucide', 'menu');
+      lucide.createIcons();
+    });
+  });
+
+  // Scroll reveal
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(function(el){ io.observe(el); });
+
+  lucide.createIcons();
+</script>
+
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){if(/[<&]/.test(t)){e.innerHTML=t}else{e.textContent=t}}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+
+</body>
+</html>

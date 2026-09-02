@@ -1,0 +1,5 @@
+DIRECTION 1: centered single-column hero with generous whitespace and a slow-scroll fade reveal — high-contrast oversized serif (Didot-style) headline paired with a thin sans-serif body — Wes Anderson "Grand Budapest" palette: powder pink #F2D9DF, pistachio #D8E4D0, and butter #F5E9C8 on ivory #FCFAF6 — quiet, storybook-genteel, unhurried
+
+DIRECTION 2: dark asymmetric split-screen with a large right-aligned image bleed and left-stacked text block — engraved small-caps serif (Times-Bodoni hybrid) headlines with wide letter-spacing — dark mode: charcoal-black canvas #14161A + single electric coral accent #FF5C6C for CTAs and rules — moody, architectural, boutique-luxury nightclub-in-a-showroom energy
+
+DIRECTION 3: modular Swiss-grid layout with overlapping cards and a diagonal scroll rhythm — geometric grotesque headlines with a single italic serif accent word per section — monochromatic dusty-blue IDE-theme palette (Nord-inspired): #E8ECF1, #B8C4D9, #7C93B3, #46618A, #263447 — crisp, systematic, calmly confident
